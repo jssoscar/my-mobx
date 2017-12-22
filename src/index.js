@@ -15,7 +15,7 @@ const routingStore = new RouterStore();
 
 const stores = {
   routing: routingStore,
-  store
+  ...store
 };
 
 const history = syncHistoryWithStore(browserHistory, routingStore);
