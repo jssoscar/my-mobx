@@ -7,7 +7,6 @@
 
 import React, {PureComponent} from 'react'
 import {Route, Switch} from 'react-router'
-
 import Index from '../pages/index'
 
 class CustomerRouter extends PureComponent {

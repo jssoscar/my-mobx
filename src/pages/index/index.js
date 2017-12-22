@@ -8,10 +8,12 @@
 import React, { Component } from 'react';
 import logo from '../../logo.svg';
 import '../../css/App.css';
+import {inject, observer} from 'mobx-react'
 
+@inject('userinfo')
+@observer
 class App extends Component {
   render() {
-    console.log('props', this.props);
     return (
       <div className="App">
         <header className="App-header">
