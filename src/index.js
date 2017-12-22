@@ -6,9 +6,9 @@ import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
 
 import './css/index.scss';
-import App from './App';
 import store from './store'
 import registerServiceWorker from './registerServiceWorker';
+import CustomerRouter from './router'
 
 const browserHistory = createBrowserHistory();
 const routingStore = new RouterStore();
@@ -23,7 +23,7 @@ const history = syncHistoryWithStore(browserHistory, routingStore);
 ReactDOM.render(
     <Provider {...stores}>
         <Router history={history}>
-            <App />
+            <CustomerRouter />
         </Router>
     </Provider>
     , document.getElementById('root'));
