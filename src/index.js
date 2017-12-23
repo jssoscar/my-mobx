@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'mobx-react'
-import createBrowserHistory from 'history/createBrowserHistory';
+import createHashHistory from 'history/createHashHistory';
 import { RouterStore, syncHistoryWithStore } from 'mobx-react-router';
 import { Router } from 'react-router';
 
@@ -10,7 +10,7 @@ import store from './store'
 import registerServiceWorker from './registerServiceWorker';
 import CustomerRouter from './router'
 
-const browserHistory = createBrowserHistory();
+const browserHistory = createHashHistory();
 const routingStore = new RouterStore();
 
 const stores = {
