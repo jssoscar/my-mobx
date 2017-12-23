@@ -24,6 +24,8 @@ class Login extends Component{
                 return;
             }
 
+            this.loading = true;
+
             const { push } = this.props.history;
             push('/index');
         });
