@@ -7,13 +7,16 @@
 
 import React, {PureComponent} from 'react'
 import {Route, Switch} from 'react-router'
-import Index from '../pages/index'
+import AsyncComponent from 'src/components/async'
+
+const Index = AsyncComponent(() => import('src/pages/index'));
+const Login = AsyncComponent(() => import('src/pages/login'));
 
 class CustomerRouter extends PureComponent {
     render() {
         return <Switch>
-            <Route exact path="/" component={Index}>
-            </Route>
+            <Route exact path="/" component={Login} />
+            <Route exact path="/index" component={Index} />
         </Switch>
     }
 }
