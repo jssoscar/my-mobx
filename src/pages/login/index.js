@@ -8,12 +8,15 @@
 import React, {Component} from 'react'
 import {Form, Input, Checkbox, Button} from 'antd'
 import {observer} from 'mobx-react'
+import {observable} from 'mobx'
 import logo from '../../img/logo.svg';
 
 const FormItem = Form.Item;
 
 @observer
 class Login extends Component{
+
+    @observable loading = false;
 
     submit = () => {
         this.props.form.validateFields((err, values) => {
@@ -72,7 +75,7 @@ class Login extends Component{
                 <Button style={{
                     width: '100%', 
                     marginBottom: 30
-                }} size="large" type="primary" onClick={this.submit}>登录</Button>
+                }} loading={this.loading} type="primary" onClick={this.submit}>登录</Button>
             </Form>
         </div>;
     }
