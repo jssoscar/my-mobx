@@ -5,12 +5,12 @@
  * @Description
  */
 
-import React, {PureComponent} from 'react'
+import React, {Component} from 'react'
 import {Spin} from 'antd'
 
-const asyncComponent = loadComponent => (class AsyncComponent extends PureComponent {
+const asyncComponent = loadComponent => (class AsyncComponent extends Component {
     state = {
-        Component: null,
+        Async: null,
         loading : false
     }
 
@@ -22,9 +22,9 @@ const asyncComponent = loadComponent => (class AsyncComponent extends PureCompon
         this.setState({
             loading : true
         }, () => {
-            loadComponent().then(({default : Component}) => {
+            loadComponent().then(({default : Async}) => {
                 this.setState({
-                    Component,
+                    Async,
                     loading : false
                 });
             }).catch((err) => {
@@ -38,20 +38,20 @@ const asyncComponent = loadComponent => (class AsyncComponent extends PureCompon
     }
 
     componentWillUnmount() {
-        this.setState({Component: null});
+        this.setState({Async: null});
     }
 
     componentLoaded = () => {
-        return !!this.state.Component;
+        return this.state.Async != null;
     }
 
     render() {
         const {state} = this;
-        const {Component} = state;
+        const {Async} = state;
         
-        return Component
+        return Async
             ? <Spin spinning={state.loading} size="large">
-                <Component {...this.props}/>
+                <Async {...this.props}/>
             </Spin>
             : null;
     }
