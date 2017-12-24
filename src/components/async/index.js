@@ -23,10 +23,12 @@ const asyncComponent = loadComponent => (class AsyncComponent extends Component 
             loading : true
         }, () => {
             loadComponent().then(({default : Async}) => {
-                this.setState({
-                    Async,
-                    loading : false
-                });
+                if(Async){
+                    this.setState({
+                        Async,
+                        loading : false
+                    });
+                }
             }).catch((err) => {
                 this.setState({
                     loading : false
