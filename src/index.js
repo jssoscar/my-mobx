@@ -10,7 +10,7 @@ import store from './store'
 import registerServiceWorker from './registerServiceWorker';
 import CustomerRouter from './router'
 
-const browserHistory = createHashHistory();
+const hashHistory = createHashHistory();
 const routingStore = new RouterStore();
 
 const stores = {
@@ -18,7 +18,7 @@ const stores = {
   ...store
 };
 
-const history = syncHistoryWithStore(browserHistory, routingStore);
+const history = syncHistoryWithStore(hashHistory, routingStore);
 
 ReactDOM.render(
     <Provider {...stores}>
