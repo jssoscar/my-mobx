@@ -1,5 +1,5 @@
 {
-  "name": "my-mobox",
+  "name": "my-mobx",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
