@@ -56,7 +56,24 @@ module.exports = {
   // You can exclude the *.map files from the build during deployment.
   devtool: shouldUseSourceMap ? 'source-map' : false,
   // In production, we only want to load the polyfills and the app code.
-  entry: [require.resolve('./polyfills'), paths.appIndexJs],
+  entry: {
+    polyfills: require.resolve('./polyfills'),
+
+    main: [
+        paths.appIndexJs, 
+        'moment'
+    ], // 'moment' for antd ,
+    
+    vendor: [
+      'react',
+      'react-router-dom',
+      'react-router',
+      'mobx',
+      'mobx-react',
+      'mobx-react-router',
+      'antd'
+    ]
+  },
   output: {
     // The build folder.
     path: paths.appBuild,
@@ -94,6 +111,7 @@ module.exports = {
       // Support React Native Web
       // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
       'react-native': 'react-native-web',
+      src : paths.src
     },
     plugins: [
       // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -166,7 +184,7 @@ module.exports = {
           // use the "style" loader inside the async code so CSS from them won't be
           // in the main CSS file.
           {
-            test: /\.css$/,
+            test: /\.(css|scss)$/,
             loader: ExtractTextPlugin.extract(
               Object.assign(
                 {
@@ -183,6 +201,12 @@ module.exports = {
                         importLoaders: 1,
                         minimize: true,
                         sourceMap: shouldUseSourceMap,
+                      },
+                    },
+                    {
+                      loader: require.resolve('sass-loader'),
+                      options: {
+                        importLoaders: 1,
                       },
                     },
                     {
@@ -244,6 +268,15 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: paths.appHtml,
+      // chunks : ['polyfills', 'vendor', 'main'],
+      // chunksSortMode : 'dependency',
+      chunksSortMode: function (chunk1, chunk2) {
+        var orders = ['polyfills', 'vendor', 'main'];
+        var order1 = orders.indexOf(chunk1.names[0]);
+        var order2 = orders.indexOf(chunk2.names[0]);
+
+        return order1 - order2;
+      },
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -271,6 +304,10 @@ module.exports = {
         // Pending further investigation:
         // https://github.com/mishoo/UglifyJS2/issues/2011
         comparisons: false,
+        // 删除console
+        drop_console: true,
+        // 内嵌定义了但是只用到一次的变量
+        collapse_vars: true
       },
       mangle: {
         safari10: true,
@@ -322,6 +359,27 @@ module.exports = {
       navigateFallbackWhitelist: [/^(?!\/__).*/],
       // Don't precache sourcemaps (they're large) and build asset manifest:
       staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }),
+    // https://zhuanlan.zhihu.com/p/30248068
+    new webpack.optimize.CommonsChunkPlugin({
+      name: ['vendor', 'runtime'],
+      minChunks: Infinity
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // ( 公共chunk(commnons chunk) 的名称)
+      name: "commons",
+      // ( 公共chunk 的文件名)
+      filename: "commons.[chunkhash:4].js",
+      // (模块必须被 3个 入口chunk 共享)
+      minChunks: 3
+    }),
+    new webpack.optimize.CommonsChunkPlugin({
+      // (选择所有被选 chunks 的子 chunks)
+      children: true,
+      // (异步加载)
+      async: true,
+      // (在提取之前需要至少三个子 chunk 共享这个模块)
+      minChunks: 3,
     }),
     // Moment.js is an extremely popular library that bundles large locale files
     // by default due to how Webpack interprets its code. This is a practical
