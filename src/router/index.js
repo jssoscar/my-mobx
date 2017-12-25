@@ -6,7 +6,7 @@
  */
 
 import React, {PureComponent} from 'react'
-import {Route, Switch, withRouter} from 'react-router'
+import {Route, Switch, Redirect, withRouter} from 'react-router'
 import AsyncComponent from 'src/components/async'
 
 const Index = AsyncComponent(() => import('src/pages/index'));
@@ -16,7 +16,8 @@ const NotFound = AsyncComponent(() => import('src/pages/404'));
 class CustomerRouter extends PureComponent {
     render() {
         return <Switch>
-            <Route exact path="/" component={Login} />
+            <Route exact path="/" render={() =><Redirect to="/login" />} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="/index" component={Index} />
             <Route component={NotFound} />
         </Switch>
