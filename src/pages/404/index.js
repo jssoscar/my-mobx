@@ -18,11 +18,7 @@ class NotFound extends Component{
 
     componentDidMount() {
         this.interval = setInterval(() => {
-            if(this.counter){
-                this.counter--;
-            }else{
-                this.clearInterval();
-            }
+            this.counter ? this.counter-- : this.clearInterval();
         }, 1000);
     }
 
@@ -33,8 +29,7 @@ class NotFound extends Component{
     clearInterval = () => {
         this.interval && clearInterval(this.interval);
         const {history} = this.props;
-        console.log('props', this.props);
-        history.push('/');
+        history.replace('/');
     }
 
     render() {
@@ -46,12 +41,10 @@ class NotFound extends Component{
                 <p className="exception-title">404</p>
                 <div  className="exception-content">
                     <p>抱歉，你访问的页面不存在</p>
-                    
                     {
                         this.counter ? <p><span style={{color: 'red'}}>{this.counter}</span>秒后将跳转到首页</p> :
                             <p>页面跳转中，请稍候……</p>
                     }
-                    
                 </div>
                 <Button type="primary" onClick={this.clearInterval}>返回首页</Button>
             </div>
