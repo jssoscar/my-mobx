@@ -5,10 +5,14 @@
  * @Description	
  */
 
-const userInfo = {
-    name : 'jssoscar',
-    email : '785979885jss@163.com',
-    username : '旭升Oscar'
-};
+import {observable} from 'mobx'
 
-export default userInfo;
+class UserInfo {
+    @observable name = '';
+
+    @observable email = '';
+
+    @observable username = '';
+}
+
+export default new UserInfo();
