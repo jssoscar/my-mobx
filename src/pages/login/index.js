@@ -26,8 +26,8 @@ class Login extends Component{
 
             this.loading = true;
 
-            const { push } = this.props.history;
-            push('/index');
+            const { replace } = this.props.history;
+            replace('/index');
         });
     }
 
@@ -75,8 +75,7 @@ class Login extends Component{
                     <a href="" style={{float: 'right'}}>忘记密码</a>
                 </FormItem>
                 <Button style={{
-                    width: '100%', 
-                    marginBottom: 30
+                    width: '100%'
                 }} loading={this.loading} type="primary" onClick={this.submit}>登录</Button>
             </Form>
         </div>;
