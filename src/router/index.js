@@ -8,17 +8,20 @@
 import React, {PureComponent} from 'react'
 import {Route, Switch, Redirect, withRouter} from 'react-router'
 import AsyncComponent from 'src/components/async'
+import Auth from '../pages/auth'
 
 const Index = AsyncComponent(() => import('src/pages/index'));
 const Login = AsyncComponent(() => import('src/pages/login'));
 const NotFound = AsyncComponent(() => import('src/pages/404'));
 
+
 class CustomerRouter extends PureComponent {
     render() {
         return <Switch>
-            <Route exact path="/" render={() =><Redirect to="/login" />} />
+            <Route exact path="/" render={() =><Redirect to="/app/index" />} />
             <Route exact path="/login" component={Login} />
-            <Route exact path="/index" component={Index} />
+            <Route path="/app" component={Auth(Index)} />
+            <Route exact path="/app/index" component={Index} />
             <Route component={NotFound} />
         </Switch>
     }
