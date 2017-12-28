@@ -5,7 +5,7 @@
  * @Description	
  */
 
-import {observable} from 'mobx'
+import {observable, action} from 'mobx'
 
 class UserInfo {
     @observable name = '';
@@ -13,6 +13,12 @@ class UserInfo {
     @observable email = '';
 
     @observable username = '';
+
+    @observable logged = false;
+
+    @action login = () => {
+        this.logged = true;
+    }
 }
 
 export default new UserInfo();
