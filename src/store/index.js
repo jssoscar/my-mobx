@@ -5,8 +5,8 @@
  * @Description	
  */
 
-import userinfo from './user'
+import userStore from './user'
 
 export default {
-    userinfo
+    userStore
 };
