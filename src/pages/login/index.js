@@ -7,27 +7,33 @@
 
 import React, {Component} from 'react'
 import {Form, Input, Checkbox, Button} from 'antd'
-import {observer} from 'mobx-react'
+import {observer, inject} from 'mobx-react'
 import {observable} from 'mobx'
 import logo from '../../img/logo.svg';
 
 const FormItem = Form.Item;
 
+@inject('userStore')
 @observer
 class Login extends Component{
 
     @observable loading = false;
 
     submit = () => {
-        this.props.form.validateFields((err, values) => {
+        const {props} = this;
+
+        props.form.validateFields((err, values) => {
             if(err){
                 return;
             }
 
+            props.userStore.login();
+
             this.loading = true;
 
-            const { replace } = this.props.history;
-            replace('/index');
+            const { replace } = props.history;
+
+            replace('/');
         });
     }
 
