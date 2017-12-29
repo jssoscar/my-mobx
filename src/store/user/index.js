@@ -14,10 +14,14 @@ class UserInfo {
 
     @observable username = '';
 
-    @observable logged = false;
+    @observable logged = true;
 
     @action login = () => {
         this.logged = true;
+    }
+
+    @action logout = () => {
+        this.logged = false;
     }
 }
 
