@@ -1,0 +1,13 @@
+.header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    .logo{
+        background-image: url('../img/logo.svg');
+        animation: App-logo-spin infinite 20s linear;
+        height: 80px;
+        width: 100px;
+    }
+}
