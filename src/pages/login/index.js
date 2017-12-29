@@ -19,7 +19,9 @@ class Login extends Component{
 
     @observable loading = false;
 
-    submit = () => {
+    submit = (e) => {
+        e.preventDefault();
+        
         const {props} = this;
 
         props.form.validateFields((err, values) => {
@@ -46,7 +48,7 @@ class Login extends Component{
                 <img src={logo} className="login-logo" alt="logo" />
             </header>
             <div className="login-title">欢迎使用react-mobx</div>
-            <Form className="login-form">
+            <Form className="login-form" onSubmit={this.submit}>
                 <FormItem>
                     {
                         getFieldDecorator('username', {
@@ -82,7 +84,7 @@ class Login extends Component{
                 </FormItem>
                 <Button style={{
                     width: '100%'
-                }} loading={this.loading} type="primary" onClick={this.submit}>登录</Button>
+                }} loading={this.loading} type="primary" htmlType="submit">登录</Button>
             </Form>
         </div>;
     }
