@@ -16,6 +16,8 @@ class UserInfo {
 
     @observable logged = true;
 
+    @observable avatar = "https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1175020977,2376655099&fm=27&gp=0.jpg";
+
     @action login = () => {
         this.logged = true;
     }
