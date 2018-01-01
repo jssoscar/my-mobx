@@ -7,15 +7,35 @@
 
 import React, { Component } from 'react';
 import {inject, observer} from 'mobx-react'
-import Header from './Header'
+import { Layout, Icon, Dropdown, Avatar} from 'antd';
+import {observable} from 'mobx'
 
 @inject('userStore')
 @observer
 class App extends Component {
+
+  @observable collapsed = false;
+
   render() {
-    return <div>
-        <Header />
+    const {props} = this,
+      {userStore} = props;
+
+
+    return <Layout.Header style={{padding: '0 0'}}>
+        <div className="header">
+          <div className="logo">
+          </div>
+          <div className="notice">
+            <Icon type="bell" />
+            <Dropdown>
+              <span className="acount">
+                <Avatar size="" className="avatar" src={userStore.avatar} />
+                {userStore.name}
+              </span>
+            </Dropdown>
+          </div>
       </div>
+    </Layout.Header>
   }
 }
 
