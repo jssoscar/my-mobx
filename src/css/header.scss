@@ -1,19 +1,17 @@
-.header{
+.header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
 
-    .logo{
-        background: url('../img/logo.svg') center center;
-        // animation: App-logo-spin infinite 20s linear;
+    .logo {
+        background: url('../img/logo.svg') center center; // animation: App-logo-spin infinite 20s linear;
         height: 64px;
         width: 80px;
     }
 
-    .notice{
+    .notice {
         font-size: 20px;
-        line-height: 64px;
         cursor: pointer;
         transition: all .3s, padding 0s;
         color: #fff;
@@ -21,16 +19,15 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        height: 100%;
 
-        .acount{
+        .acount {
             margin: 0 10px;
-        }
 
-        .avatar {
-            margin: 20px 8px 20px 0;
-            background: rgba(255, 255, 255, .85);
-            vertical-align: middle;
-          }
+            .avatar {
+                background: rgba(255, 255, 255, .85);
+                vertical-align: middle;
+            }
+        }
     }
-    
 }
