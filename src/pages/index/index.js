@@ -9,12 +9,19 @@ import React, { Component } from 'react';
 import {inject, observer} from 'mobx-react'
 import { Layout, Icon, Dropdown, Avatar} from 'antd';
 import {observable} from 'mobx'
+import {get} from 'src/http'
 
 @inject('userStore')
 @observer
 class App extends Component {
 
   @observable collapsed = false;
+
+  componentWillMount() {
+    get('/common/menu').then(result => {
+      console.log('result', result);
+    })
+  }
 
   render() {
     const {props} = this,
@@ -27,12 +34,10 @@ class App extends Component {
           </div>
           <div className="notice">
             <Icon type="bell" />
-            <Dropdown>
               <span className="acount">
                 <Avatar size="" className="avatar" src={userStore.avatar} />
                 {userStore.name}
               </span>
-            </Dropdown>
           </div>
       </div>
     </Layout.Header>
