@@ -15,18 +15,18 @@ window.Promise = Promise;
 
 axios.defaults.headers.common['X-Requested-With'] = "XMLHttpRequest";
 
-axios.interceptors.request.use(function (config) {
+axios.interceptors.request.use(config => {
     NProgress.start(); 
     return Object.assign({
         timeout: 100
     }, config);
-}, function (error) {
+}, error => {
     NProgress.done();
-    console.log('request', error)
+    console.log('request', error);
     return Promise.reject(error);
 });
 
-axios.interceptors.response.use(function (res) {
+axios.interceptors.response.use(res => {
     NProgress.done();
     const {
         data
@@ -41,7 +41,7 @@ axios.interceptors.response.use(function (res) {
         return Promise.reject(res);
     }
     return res;
-}, function (error) {
+}, error => {
     if (error.cancel !== true) {
         NProgress.done();
     }
